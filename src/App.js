@@ -2,7 +2,7 @@ import { useState } from "react";
 
 function App() {
   const [time, setTime] = useState(0);
-  const [intervalTracker, setIntervalTracker] = useState(null);
+  const [intervalTracker, setIntervalTracker] = useState(null); // Use null as initial value
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -14,37 +14,33 @@ function App() {
     const intervalId = setInterval(() => {
       setTime((t) => t + 1);
     }, 1000);
-    setIntervalTracker(intervalId);
-    /// setIntervalTracker will store the interval id
+    setIntervalTracker(intervalId); // Store the interval ID
   };
 
   const handleStop = () => {
-    clearInterval(intervalTracker);
-    setIntervalTracker(-1); /// for stop we no need to rest the time
-    /// just clearInterval is ok ryt
+    clearInterval(intervalTracker); // Stop the stopwatch by clearing the interval
+    setIntervalTracker(null); // Set intervalTracker to null (indicating stopped state)
   };
 
   const handleReset = () => {
-    clearInterval(intervalTracker); /// clearIntervalTracker same as above
-    setTime(0); /// rest the time to 0
-    setIntervalTracker(-1);
+    clearInterval(intervalTracker); // Clear interval when resetting
+    setTime(0); // Reset the time to 0
+    setIntervalTracker(null); // Set intervalTracker to null when reset
   };
 
   return (
-    /// syntax for the UI
     <div>
-      <h1>StopWatch</h1>
-      {/*the curly braces below used to insert the dynamic expressions  */}
+      <h1>Stopwatch</h1>
+      {/* Display the formatted time */}
       <p>Time: {formatTime(time)}</p>
-      {/*conditionally render the UI if the interval Tracker has same value as inital value then start the button */}
-      {intervalTracker !== null ? (/// if the interval tracker is not equal to null then it has some Interval ID with it 
-        <button onClick={handleStop}>Stop</button>
+      {/* Conditionally render Start/Stop button */}
+      {intervalTracker === null ? (
+        <button onClick={handleStart}>Start</button> // Start button when not running
       ) : (
-        /// assign the handleStart func as event handler to the onClick event
-        <button onClick={handleStart}>Start</button>
+        <button onClick={handleStop}>Stop</button> // Stop button when running
       )}
-      {/* assigning the handleReset function as the event handler for the onClick event. */}
-      <button onClick={handleReset}>Reset</button> {/*reset func clears the interval as well as resets the time to 0  */}
+      {/* Reset button, which is always visible */}
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
 }
