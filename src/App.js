@@ -2,12 +2,11 @@ import { useState } from "react";
 
 function App() {
   const [time, setTime] = useState(0);
-  const [intervalTracker, setIntervalTracker] = useState(-1);
+  const [intervalTracker, setIntervalTracker] = useState(null);
 
   const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);/// here floor div is for min to sec 
-    const remainingSeconds = seconds % 60;/// mod div will give the remaining sec for exam take 130 sec should be represnted as 2 min 10 sec 2 min weill get by 
-    // floor div operator and normal div with modulo operator 
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
@@ -38,14 +37,14 @@ function App() {
       {/*the curly braces below used to insert the dynamic expressions  */}
       <p>Time: {formatTime(time)}</p>
       {/*conditionally render the UI if the interval Tracker has same value as inital value then start the button */}
-      {intervalTracker !== -1 ? (
+      {intervalTracker !== null ? (/// if the interval tracker is not equal to null then it has some Interval ID with it 
         <button onClick={handleStop}>Stop</button>
       ) : (
         /// assign the handleStart func as event handler to the onClick event
         <button onClick={handleStart}>Start</button>
       )}
       {/* assigning the handleReset function as the event handler for the onClick event. */}
-      <button onClick={handleReset}>Reset</button>
+      <button onClick={handleReset}>Reset</button> {/*reset func clears the interval as well as resets the time to 0  */}
     </div>
   );
 }
