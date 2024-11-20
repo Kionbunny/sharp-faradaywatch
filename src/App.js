@@ -5,8 +5,9 @@ function App() {
   const [intervalTracker, setIntervalTracker] = useState(-1);
 
   const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
+    const minutes = Math.floor(seconds / 60);/// here floor div is for min to sec 
+    const remainingSeconds = seconds % 60;/// mod div will give the remaining sec for exam take 130 sec should be represnted as 2 min 10 sec 2 min weill get by 
+    // floor div operator and normal div with modulo operator 
     return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
